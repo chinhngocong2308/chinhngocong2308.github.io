@@ -52,13 +52,13 @@
                                 </div>
                                  <div class="form-group" >
                                     <label for="text">Mô tả </label>
-                                    <textarea style="resize: none" rows="5" class="form-control" name="product_desc" id="exampleInputPassword1" placeholder="Mô tả" ></textarea> 
+                                    <textarea style="resize: none" rows="5" class="form-control" name="product_desc" id="ckeditor1" placeholder="Mô tả" ></textarea> 
                                 </div>
                                   <div class="form-group" >
                                     <label for="text">Nội dung sản phẩm </label>
                                     <textarea style="resize: none" rows="5" class="form-control" name="product_content" id="exampleInputPassword1" placeholder="Nội dung sản phảm"></textarea> 
                                  <div class="form-group" style="width: 20%">
-                                    <label for="text">Danh mục sản phẩm </label>
+                                    <label for="text">Danh mục  </label>
                                         <select class="form-control input-sm m-bot15" name="product_cate">
                                             @foreach($cate_product as $key => $cate)
                                             <option value="{{$cate->category_id}}">{{ $cate->category_name }}</option>
@@ -66,12 +66,24 @@
                                         </select>
                                 </div>
                                  <div class="form-group"  style="width: 20%" >
-                                    <label for="text">Thương hiệu </label>
+                                    <label for="text">Dành cho </label>
                                         <select class="form-control input-sm m-bot15" name="product_brand">
                                              @foreach($brand_product as $key => $brand)
+                                             @if($brand->brand_parent==00)
                                             <option value="{{$brand->brand_id}}">{{ $brand->brand_name }}</option>
+                                            @endif
                                             @endforeach     
-                                       
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text">Thương hiệu </label>
+                                        <select class="form-control input-sm m-bot15" name="product_parent_id">
+                                                <option value="0">--Thương hiệu--</option>
+                                            @foreach ($brand_product as $key=>$val )
+                                            @if ($val->brand_parent!=0)
+                                                <option value="{{$val->brand_id}}">{{$val->brand_name}}</option>
+                                            @endif
+                                            @endforeach
                                         </select>
                                 </div>
                                 </div>

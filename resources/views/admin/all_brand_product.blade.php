@@ -4,31 +4,10 @@
  <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-        Liệt kê thương hiệu sản phẩm
-    </div>
-    <div class="row w3-res-tb">
-      <div class="col-sm-5 m-b-xs">
-        <select class="input-sm form-control w-sm inline v-middle">
-          <option value="0">Bulk action</option>
-          <option value="1">Delete selected</option>
-          <option value="2">Bulk edit</option>
-          <option value="3">Export</option>
-        </select>
-        <button class="btn btn-sm btn-default">Apply</button>                
-      </div>
-      <div class="col-sm-4">
-      </div>
-      <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" placeholder="Search">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span>
-        </div>
-      </div>
+        Liệt kê mục bán dành cho sản phẩm
     </div>
     <div class="table-responsive">
-      <table class="table table-striped b-t b-light">
+      <table class="table table-striped b-t b-light" id="myTable">
       <?php
           $message = Session::get('message');
           if($message)
@@ -45,6 +24,7 @@
               </label>
             </th>
             <th>Tên Mục bán</th>
+            <th>Thương hiệu</th>
             <th>Slug</th>
             <th>Mô tả</th>
             <th>Hiển thị</th>
@@ -57,6 +37,20 @@
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{$bra_pro->brand_name}}</td>
+            <td>
+              @if ($bra_pro->brand_parent==0)
+              <span style="color: red">Mục bán</span>
+              @else
+                @foreach ($brand as $key => $brand_sub_pro)
+                  @if ($brand_sub_pro->brand_id==$bra_pro->brand_parent )
+                  <span style="color: green">{{$brand_sub_pro->brand_name}}</span>
+                  @endif
+               
+
+                @endforeach
+              
+              @endif
+            </td>
             <td>{{$bra_pro->brand_slug }}</td>
             <td>{{$bra_pro->brand_desc}}</td>
             <td><span class="text-ellipsis">
@@ -90,16 +84,6 @@
         
         <div class="col-sm-5 text-center">
           <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">                
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
         </div>
       </div>
     </footer>

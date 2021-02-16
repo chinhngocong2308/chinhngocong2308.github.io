@@ -3,11 +3,10 @@
 <title>Dashboard</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Visitors Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
 <link rel="stylesheet" href="{{asset('public/backend/css/bootstrap.min.css')}}" >
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <!-- //bootstrap-css -->
 <!-- Custom CSS -->
@@ -54,7 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="{{('public/backend/images/2.png')}}">
+                <img alt="" src="{{asset('public/backend/images/chỉ mục.jpg')}}">
                 <span class="username">
                     <?php
                     $name = Session::get('admin_name');
@@ -99,8 +98,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         <li><a href="{{URL::to('/manage-order')}}">Quản lý đơn hàng</a></li>
-                        
-                      
                     </ul>
                 </li>
                  <li class="sub-menu">
@@ -122,8 +119,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </a>
                     <ul class="sub">
                         <li><a href="{{URL::to('/delivery')}}">Quản lý vận chuyển</a></li>
-                        
-                        
+                    </ul>
+                </li>
+                 <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Danh mục bài viết</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/add-category-post')}}">Thêm danh mục bài viết</a></li>
+                        <li><a href="{{URL::to('/all-category-post')}}">Liệt kê danh mục bài viết</a></li>
+                      
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Bài viết</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/add-post')}}">Thêm bài viết</a></li>
+                        <li><a href="{{URL::to('/all-post')}}">Liệt kê bài viết</a></li>
                       
                     </ul>
                 </li>
@@ -135,6 +151,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="sub">
                         <li><a href="{{URL::to('/add-category-product')}}">Thêm danh mục sản phẩm</a></li>
                         <li><a href="{{URL::to('/all-category-product')}}">Liệt kê danh mục sản phẩm</a></li>
+                    </ul>
+                </li>
+                  <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Sản phẩm</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm</a></li>
+                        <li><a href="{{URL::to('/all-product')}}">Liệt kê sản phẩm</a></li>
+                      
+                    </ul>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Bình luận khách hàng</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{URL::to('/comment')}}">Liệt kê bình luận</a></li>
                       
                     </ul>
                 </li>
@@ -152,17 +188,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   <li class="sub-menu">
                     <a href="javascript:;">
                         <i class="fa fa-book"></i>
-                        <span>Sản phẩm</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{URL::to('/add-product')}}">Thêm sản phẩm</a></li>
-                        <li><a href="{{URL::to('/all-product')}}">Liệt kê sản phẩm</a></li>
-                      
-                    </ul>
-                </li>
-                  <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
                         <span>Thư viện ảnh sản phẩm</span>
                     </a>
                     <ul class="sub">
@@ -171,19 +196,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                       
                     </ul>
                 </li>
-                 <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-book"></i>
-                        <span>Bài viết</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="{{URL::to('/add-post')}}">Thêm ảnh bài viết</a></li>
-                        <li><a href="{{URL::to('/all-post')}}">Liệt kê bài viết</a></li>
-                      
-                    </ul>
-                </li>
-             
-            </ul>            </div>
+             </div>
         <!-- sidebar menu end-->
     </div>
 </aside>
@@ -211,6 +224,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
+<script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    $('.comment_duyet_btn').click(function(){
+        var comment_status = $(this).data('comment_status');
+        var comment_id = $(this).data('comment_id');
+        var comment_product_id = $(this).attr('id');
+         var _token = $('input[name="_token"]').val();
+        if(comment_status==0){
+            var alert = "Duyệt thành công !";
+        }else{
+            var alert ="Duyệt thất bại !";
+        }
+        $.ajax({
+                url : '{{url('/duyet-comment')}}',
+                method: 'POST',
+                data:{comment_status:comment_status,comment_id:comment_id,comment_product_id:comment_product_id,_token:_token},
+                success:function(data){
+                    location.reload();
+                   $('#notify_comment').html('<span class="text text-alert">'+alert+'</span>');
+                }
+            });
+
+    });
+    $('.btn-reply-comment').click(function(){
+        var comment_id = $(this).data('comment_id');
+        var comment = $('.reply_comment_'+ comment_id).val();
+        var comment_product_id = $(this).data('product_id');
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+                url : '{{url('/reply-comment')}}',
+                method: 'POST',
+                data:{comment:comment,comment_id:comment_id,comment_product_id:comment_product_id,_token:_token},
+                success:function(data){
+                   $('.reply_comment').val('');
+                   $('#notify_comment').html('<span class="text text-alert">Đã trả lời bình luận!</span>');
+                }
+            });
+
+    });
+</script>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#myTable').DataTable();
+    $('#Table1').DataTable();
+} );
+</script>
+<script >
+    CKEDITOR.replace('ckeditor');
+    CKEDITOR.replace('ckeditor1');
+    CKEDITOR.replace('ckeditor2');
+    CKEDITOR.replace('ckeditor3');
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -292,11 +357,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     })
 
 
-</script>
-<script type="text/javascript">
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-    } );
 </script>
 <script type="text/javascript">
         $.validate({
@@ -394,6 +454,41 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         });
     </script>
+     <script type="text/javascript">
+             function ChangeToSlug()
+                {
+                    var  slug;
+                 
+                    //Lấy text từ thẻ input title 
+                    slug = document.getElementById("slug").value;
+                    //Đổi chữ hoa thành chữ thường
+                    slug = slug.toLowerCase();
+                 
+                    //Đổi ký tự có dấu thành không dấu
+                    slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+                    slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+                    slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+                    slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+                    slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+                    slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+                    slug = slug.replace(/đ/gi, 'd');
+                    //Xóa các ký tự đặt biệt
+                    slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+                    //Đổi khoảng trắng thành ký tự gạch ngang
+                    slug = slug.replace(/ /gi, " - ");
+                    //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+                    //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+                    slug = slug.replace(/\-\-\-\-\-/gi, '-');
+                    slug = slug.replace(/\-\-\-\-/gi, '-');
+                    slug = slug.replace(/\-\-\-/gi, '-');
+                    slug = slug.replace(/\-\-/gi, '-');
+                    //Xóa các ký tự gạch ngang ở đầu và cuối
+                    slug = '@' + slug + '@';
+                    slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+                    //In slug ra textbox có id “slug”
+                    document.getElementById('convert_slug').value = slug;
+                }
+         </script>
     <!-- //calendar -->
 </body>
 </html>

@@ -152,8 +152,6 @@
 								</div>
 								<button type="submit" name="calculate_order" class="calculate_delivery">Xác nhận</button>
 							</form>
-					
-						{{Session::get('fee')}}
 						</div>
 						<!-- Shopping Estimate -->
 						<!-- Shopping Code -->

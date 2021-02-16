@@ -8,12 +8,13 @@ use Session;
 use App\Http\Requests;
 use App\Models\Coupon;
 use Cart;
+use App\Models\CatePost;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\Wards;
 use App\Models\Feeship;
-
+use App\Models\Post;
 session_start();
 
 class CartController extends Controller
@@ -107,7 +108,7 @@ class CartController extends Controller
     }
     
     public function show_cart(Request $request){
-
+         $category_post = CatePost::orderby('cate_post_id','DESC')->get();
         $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get(); 
         $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get(); 
         $city = City::orderby('matp','ASC')->get();
@@ -119,7 +120,7 @@ class CartController extends Controller
         $url_canonical =$request->url();
    
 
-        return view('pages.cart.show_cart')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('city',$city);
+        return view('pages.cart.show_cart')->with('category',$cate_product)->with('brand',$brand_product)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('city',$city)->with('category_post',$category_post);
         
     }
      public function delete_product($session_id){

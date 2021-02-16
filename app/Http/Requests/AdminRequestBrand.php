@@ -24,7 +24,7 @@ class AdminRequestBrand extends FormRequest
     public function rules()
     {
         return [
-            'brand_product_name' =>'required|unique:tbl_brand,brand_name',
+            'brand_product_name' =>'required:tbl_brand,brand_name',
             
            
             
@@ -33,7 +33,6 @@ class AdminRequestBrand extends FormRequest
     public function messages(){
         return [
             'brand_product_name.required' => 'Tên thương hiệu sản phẩm không được để trống !',
-             'brand_product_name.unique' => 'Tên thương hiệu đã được nhập !',
            
            
         ];

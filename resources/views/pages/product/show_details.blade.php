@@ -12,11 +12,7 @@
 									<a href="{{URL::to('/shop')}}">SHOP</a>
 									<span><i class="fa fa-angle-right"></i></span>
 									<li class="category3"><span>Chi tiết sản phẩm</span></li>
-									
-									
 								</li>
-
-								
 							</ul>
 						</div>
 					</div>
@@ -33,15 +29,14 @@
 						<div class="zoomWrapper">
 							<div id="img-1" class="zoomWrapper single-zoom">
 								<a href="#">
-									<img id="zoom1" src="http://localhost/shoplaravel/public/uploads/product/{{ $value->product_image }}" data-zoom-image="http://localhost/shoplaravel/public/uploads/product/{{ $value->product_image }}" alt="big-1">
+									<img id="zoom1" src="{{url::to('/public/uploads/product/'.$value->product_image)}}" data-zoom-image="{{url::to('/public/uploads/product/'.$value->product_image)}}" alt="big-1">
 								</a>
 							</div>
 							<div class="single-zoom-thumb">
 								<ul class="bxslider" id="gallery_01">
 									@foreach($image as $key => $imageit ) 
 									<li class="">
-										
-										<a href="#"  class="elevatezoom-gallery" data-image="http://localhost/shoplaravel/public/uploads/product/{{ $imageit->imagesp }}" data-zoom-image="http://localhost/shoplaravel/public/uploads/product/{{ $imageit->imagesp }}"><img src="http://localhost/shoplaravel/public/uploads/product/{{ $imageit->imagesp }}" alt="zo-th-2"></a>
+										<a href="#"  class="elevatezoom-gallery" data-image="{{url::to('/public/uploads/product/'.$imageit->imagesp)}}" data-zoom-image="{{url::to('/public/uploads/product/'.$imageit->imagesp)}}"><img src="{{url::to('/public/uploads/product/'.$imageit->imagesp)}}" alt="zo-th-2"></a>
 										
 									</li>
 									@endforeach
@@ -66,12 +61,27 @@
 									<h2 class="product-name"><a href="#">{{$value->product_name}}</a></h2>
 									<div class="rating-price">	
 										<div class="pro-rating">
-											<a href="#"><i class="fa fa-star"></i></a>
-											<a href="#"><i class="fa fa-star"></i></a>
-											<a href="#"><i class="fa fa-star"></i></a>
-											<a href="#"><i class="fa fa-star"></i></a>
-											<a href="#"><i class="fa fa-star"></i></a>
-										</div>
+														<ul class="list-inline rating">
+														@for($count=1;$count<=5;$count++)
+														@php
+															if($count<=$rating){
+																$color = 'color: #000000;';
+															}else{
+																$color = 'color:#ccc;';
+															}
+														@endphp
+														<li title="rating star" 
+														id=""
+															data-index=""
+															data-product_id=""
+															data-rating="{{$rating}}"
+															class="rating"
+															style="cursor: pointer;{{$color}}; font-size: 20px;">
+																&#9733;
+															</li>
+														@endfor
+														</ul>
+													</div>
 										<div class="price-boxes">
 									
 											
@@ -109,11 +119,7 @@
 												
 											
 											<div class="inputx-content">
-											
-											</div>
-
-											
-											
+											</div>								
 											<div class="add-to-links">
 												<div class="add-to-wishlist">
 													<a href="#" data-toggle="tooltip" title="" data-original-title="Add to Wishlist"><i class="fa fa-heart"></i></a>
@@ -141,76 +147,89 @@
 					<div class="single-product-tab">
 						  <!-- Nav tabs -->
 						<ul class="details-tab">
-							<li class="active"><a href="#home" data-toggle="tab">Mô tả</a></li>
+							<li class=""><a href="#home" data-toggle="tab">Mô tả</a></li>
 							<li class=""><a href="#binhluan" data-toggle="tab"> Bình luận</a></li>
-							<li class=""><a href="#messages" data-toggle="tab"> Đánh giá(1)</a></li>
+							<li class="active"><a href="#messages" data-toggle="tab"> Đánh giá</a></li>
 						</ul>
 						  <!-- Tab panes -->
 						<div class="tab-content">
 							<!--Active len đầu when load-->
-							<div role="tabpanel" class="tab-pane active" id="home">
+							<div role="tabpanel" class="tab-pane " id="home">
 								<div class="product-tab-content">
-									{{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla. Donec a neque libero. Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. </p>
-									<p>Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue.</p>	 --}}
+									<ul> <p>{{$value->product_content}}</p>
+									@foreach($image as $key =>$im)
+										<p>@for($i=1;$i<=6;$i++)</p>
+										<li style="margin-right: 200px"><img src="{{url::to('/public/uploads/product/'.$im->imagesp)}}" style="width: 50%;height: 50%"></li>
+										<li style="text-align: center;">Ảnh : {{$i}}</li>
+										@endfor
+									@endforeach
+									</ul>
 								</div>
 							</div>
 							<div role="tabpanel" class="tab-pane" id="binhluan">
-								<div class="single-post-comments col-md-6 col-md-offset-3" style="margin-left: 1%;width: 200%">
+								<div class="single-post-comments col-md-6 col-md-offset-3" style="margin-left: 1%;width: 1000px">
 									<div id="fb-root"></div>
 								<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=2439929359647305&autoLogAppEvents=1" nonce="MspenUjq"></script>
-								<div class="fb-comments" data-href="http://localhost/shoplaravel/chi-tiet-san-pham/{{$value->product_id}}" data-numposts="5" data-width=""></div>				
+								<div class="fb-comments" data-href="{{$url_canonical}}" data-numposts="10" data-width=""></div>				
 								</div>
 							</div>
-							<div role="tabpanel" class="tab-pane" id="messages">
+							<div role="tabpanel" class="tab-pane active" id="messages">
 								<div class="single-post-comments col-md-6 col-md-offset-3">
 									<div class="comments-area">
-										<h3 class="comment-reply-title">1 REVIEW FOR TURPIS VELIT ALIQUET</h3>
-										<div class="comments-list">
-											<ul>
-												<li>
-													<div class="comments-details">
-														<div class="comments-list-img">
-															<img src="img/user-1.jpg" alt="">
-														</div>
-														<div class="comments-content-wrap">
-															<span>
-																<b><a href="#">Admin - </a></b>
-																<span class="post-time">October 6, 2014 at 1:38 am</span>
-															</span>
-															<p>Lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi.</p>
-														</div>
-													</div>
-												</li>									
-											</ul>
-										</div>
+										<h3 class="comment-reply-title">Review mới nhất</h3>
+										<form >
+											@csrf
+											<input type="hidden" name="comment_product_id" value="{{$value->product_id}}" class="comment_product_id">
+											<div id="comment_show"></div>
+										</form>
 									</div>
 									<div class="comment-respond">
-										<h3 class="comment-reply-title">Add a review</h3>
-										<span class="email-notes">Your email address will not be published. Required fields are marked *</span>
-										<form action="#">
+										<h3 class="comment-reply-title">Viết đánh giá</h3>
+										<form>
+											@csrf
+										<span class="email-notes">Địa chỉ email của bạn sẽ được ẩn, các trường (*) là bắt buộc</span>
 											<div class="row">
 												<div class="col-md-12">
-													<p>Name *</p>
-													<input type="text">
+													<p>Họ tên *</p>
+													<input type="text" class="comment_name">
 												</div>
 												<div class="col-md-12">
 													<p>Email *</p>
-													<input type="email">
+													<input type="email" class="comment_email">
 												</div>
 												<div class="col-md-12">
-													<p>Your Rating</p>
+													<p>Đánh giá sao cho sản phẩm</p>
 													<div class="pro-rating">
-														<a href="#"><i class="fa fa-star"></i></a>
-														<a href="#"><i class="fa fa-star"></i></a>
-														<a href="#"><i class="fa fa-star"></i></a>
-														<a href="#"><i class="fa fa-star-o"></i></a>
-														<a href="#"><i class="fa fa-star-o"></i></a>
+														<ul class="list-inline rating">
+														@for($count=1;$count<=5;$count++)
+														@php
+															if($count<=$rating){
+																$color = 'color:#ffcc00;';
+															}else{
+																$color = 'color:#ccc;';
+															}
+														@endphp
+														<li title="rating star" 
+														id="{{$value->product_id}}-{{$count}}"
+															data-index="{{$count}}"
+															data-product_id="{{$value->product_id}}"
+															data-rating="{{$rating}}"
+															class="rating"
+															style="cursor: pointer;{{$color}}; font-size: 20px;">
+																&#9733;
+															</li>
+														@endfor
+														</ul>
 													</div>
 												</div>
 												<div class="col-md-12 comment-form-comment">
-													<p>Your Review</p>
-													<textarea id="message" cols="30" rows="10"></textarea>
-													<input type="submit" value="Submit">
+													<p>Nhận xét</p>
+													<textarea id="message" class="comment_content" cols="30" rows="10"></textarea>
+
+													<div class="actions-log" >	
+														<input type="button" value="Gửi" name="comment" class="send-comment" style="margin-top: 20px">
+													</div>
+													<div id="notify_comment"></div>
 												</div>
 											</div>
 										</form>

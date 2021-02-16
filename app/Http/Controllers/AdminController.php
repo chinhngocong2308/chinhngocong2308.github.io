@@ -34,7 +34,7 @@ class AdminController extends Controller
 		$admin_email = $data['admin_email'];
 		$admin_password = md5($data['admin_password']);
 		$login = Admin::where('admin_email',$admin_email)->where('admin_password',$admin_password)->first();
-		$login_count = $login->count();
+		$login_count = $login;
 		if($login_count){
 			Session::put('admin_name',$login->admin_name);
 			Session::put('admin_id',$login->admin_id);

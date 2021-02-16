@@ -55,17 +55,17 @@
 								</div>
 								<ul class="sidebar-tags">
 									 @foreach($category as $key=>$cate)
-									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a><span> ({{$cate->category_id}})</span></li>
+									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->slug_category_product)}}">{{$cate->category_name}}</a><span> {{-- ({{$cate->category_id}}) --}}</span></li>
 									@endforeach
 								</ul>
 							</aside>
 							<aside class="sidebar-content">
 								<div class="sidebar-title">
-									<h6>Dành cho</h6>
+									<h6>Thương hiệu</h6>
 								</div>
 								<ul>
 									 @foreach($brand as $key=>$br)
-									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_id)}}">{{ $br->brand_name}}</a><span> ({{$br->brand_id}})</span></li>
+									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_slug)}}">{{ $br->brand_name}}</a><span>{{--  ({{$br->brand_id}}) --}}</span></li>
 									@endforeach
 								</ul>
 							</aside>
@@ -82,7 +82,7 @@
 												<div class="price_slider_amount">
 													<input type="submit" class="filter-price" value="Filter"/>
 													<div class="filter-ranger">
-														<h6>Price:</h6>
+														<h6>Giá :</h6>
 														<input type="text" id="amount" name="price" placeholder="Add Your Price" />
 													</div>
 												</div>
@@ -99,14 +99,13 @@
 								</div>
 								<div class="exp-tags">
 									<div class="tags">
-										<a href="#">camera</a>
-										<a href="#">mobile</a>
-										<a href="#">electronic</a>
-										<a href="#">destop</a>
-										<a href="#">tablet</a>
-										<a href="#">accessories</a>
-										<a href="#">camcorder</a>
-										<a href="#">laptop</a>
+										<a href="#">Jeans</a>
+										<a href="#">jackets & coats</a>
+										<a href="#">bags</a>
+										<a href="#">shoes</a>
+										<a href="#">T-shirts</a>
+										<a href="#">Shirts</a>
+										<a href="#">Head</a>
 									</div>
 								</div>
 							</aside>
@@ -138,7 +137,7 @@
 									<div class="limiter hidden-xs">
 										<label>Show</label>
 										<select>
-											<option selected="selected" value="">9</option>
+											<option selected="selected" value="">3</option>
 											<option value="">12</option>
 											<option value="">24</option>
 											<option value="">36</option>
@@ -295,14 +294,9 @@
 										</form>
 									</div>
 									<div class="col-md-4 col-sm-4 col-xs-12 text-center">
-										<div class="pages">
-											<label>Page:</label>
-											<ul>
-												<li class="current">1</li>
-												<li><a href="#">2</a></li>
-												<li><a href="#" class="next i-next" title="Next"><i class="fa fa-arrow-right"></i></a></li>
-											</ul>
-										</div>
+										
+											{{--  {{ $all_product->links() }} --}}
+										
 									</div>
 									<div class="col-md-4 col-sm-4 col-xs-12 nopadding-right text-right">
 										<div class="view-mode">

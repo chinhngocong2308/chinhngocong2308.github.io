@@ -32,7 +32,7 @@ class ImagesProduct extends Controller
      public function all_images_product()
     {	
       $this-> AuthLogin();
-    	$all_images_product = DB::table('tbl_images_product')->paginate(5);
+    	$all_images_product = DB::table('tbl_images_product')->orderby('image_id','desc')->paginate(5);
     	$manager_images_product = view('admin.all_images_product')->with('all_images_product',$all_images_product);
     	return view('admin_layout')->with('admin.all_images_product',$manager_images_product);
     }

@@ -10,13 +10,20 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>SHOP | Notphace</title>
         <meta name="robots" content="index,follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-   {{--      <meta name="description" content="{{$meta_desc}}">
+        <meta name="description" content="{{$meta_desc}}">
         <meta name="keywords" content="{{$meta_keywords}}"/>
-        <meta name="robots" content="INDEX,FOLLOW"/> --}}
-       {{--  <link  rel="canonical" href="{{$url_canonical}}" /> --}}
+        <link  rel="canonical" href="{{$url_canonical}}" />
+          <title>{{$meta_title}}</title>
+      {{--   <meta property="og:image" content="{{$image_og}}" />
+        <meta property="og:site_name" content="thiatv.com" />
+        <meta property="og:description" content="{{$meta_desc}}" />
+        <meta property="og:title" content="{{$meta_title}}" />
+        <meta property="og:url" content="{{$url_canonical}}" />
+        <meta property="og:type" content="website" /> --}}
+
+
         <meta name="author" content="">
         <link  rel="icon" type="image/x-icon" href="https://www.versace.com/on/demandware.static/-/Library-Sites-ver-shared-trans/default/dwc296e088/images/icon/jc-favicon.png" />
 
@@ -93,9 +100,7 @@
     </head>
     <nav id="fixNav">
       <header class="short-stor">
-  
-            <div class="container-fluid">
-                
+                <div class="container-fluid">
                 <div class="row">
                     <!-- logo start -->
                     <div class="col-md-3 col-sm-12 text-center nopadding-right" id="">
@@ -108,45 +113,104 @@
                     <div class="col-md-6 text-center">
                         <div class="mainmenu">
                             <nav>
-                                <ul style="margin-top: -50px">
+                                <ul style="">
                                     <li class="expand"><a href="{{URL::to('/trang-chu')}}">Trang chủ</a>                      
-                                    </li>   @foreach($brand as $key => $brand)
-                                    <li class="expand"><a href="shop-grid.html">                  
-                                        <a href="{{URL::to('/thuong-hieu-san-pham/'.$brand->brand_id)}}">{{ $brand->brand_name}}</a>       
+                                    </li>   
+                                    @foreach($brand as $key => $bra)
+                                        @if ($bra->brand_parent==0)
+                                        <li class="expand"><a href="{{URL::to('/thuong-hieu-san-pham-sex/'.$bra->brand_slug)}}">{{$bra->brand_name}}</a>
+                                            <div class="restrain mega-menu megamenu2" style="width: 1100px">
+                                                @foreach ($brand as $key=>$brand_sub )
+                                                @if ($brand_sub->brand_parent==$bra->brand_id)
+                                                <span>
+                                                    <a class="mega-menu-title" href="{{URL::to('/thuong-hieu-san-pham-parent/'.$brand_sub->brand_slug)}}">{{$brand_sub->brand_name}}</a>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                    <a href="#">Blazers</a>
+                                                    <a href="#">Jackets</a>
+                                                    <a href="#">Rincoats</a> 
+                                                </span>
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                        </li>
+                                        @endif
+                                    @endforeach
                                     </li>
-                                        @endforeach
-                                   
-                                      
-                                    </li>
-                                 
                                         <div class="restrain mega-menu megamenu1">
-
-                                     
                                              </span>
-                                                
                                            {{--  <span class="block-last">
-                                                <a class="mega-menu-title" href="shop-grid.html">Top</a>
-                                                <a href="shop-grid.html">Briefs</a>
-                                                <a href="shop-grid.html">Camis</a>
-                                                <a href="shop-grid.html">Nigntwears</a>
-                                                <a href="shop-grid.html">Shapewears</a>
+                                                <a class="mega-menu-title" href="#">Top</a>
+                                                <a href="#">Briefs</a>
+                                                <a href="#">Camis</a>
+                                                <a href="#">Nigntwears</a>
+                                                <a href="#">Shapewears</a>
                                             </span> --}}
                                         </div>
                                     </li>
                                     <li class="expand"><a href="{{URL::to('/shop')}}">SHOP</a>
-                                    <li class="expand"><a href="about-us.html">Giới thiệu</a></li>
-                                    <li class="expand"><a href="contact-us.html">Liên hệ</a></li>
+                                    <li class="expand"><a href="#">Tin tức</a>
+                                        <ul class="restrain sub-menu">
+                                            @foreach($category_post as $key =>$cate_post)
+                                            <li><a href="{{URL::to('/danh-muc-bai-viet/'.$cate_post->cate_post_slug)}}">{{$cate_post->cate_post_name}}</a></li>
+                                            @endforeach
+                                        </ul>                                   
+                                    </li>
+                                    <li class="expand"><a href="{{url('/lien-he')}}">Liên hệ</a></li>
                                 </ul>
                             </nav>
                         </div>
                         <!-- mobile menu start -->
-                      
+                      <!-- mobile menu start -->
+                        <div class="row">
+                            <div class="col-sm-12 mobile-menu-area">
+                                <div class="mobile-menu hidden-md hidden-lg" id="mob-menu">
+                                    <span class="mobile-menu-title">Menu</span>
+                                    <nav>
+                                        <ul>
+                                            <li><a href="{{URL::to('/trang-chu')}}">Trang chủ</a>
+                                            </li>
+                                           <li class="expand"><a href="{{URL::to('/shop')}}">SHOP</a>
+                                        @foreach($brand as $key => $bra)
+                                        @if ($bra->brand_parent==0)
+                                        <li class="expand"><a href="{{URL::to('/thuong-hieu-san-pham/'.$bra->brand_slug)}}">{{$bra->brand_name}}</a>
+                                           <ul>
+                                                @foreach ($brand as $key=>$brand_sub )
+                                                @if ($brand_sub->brand_parent==$bra->brand_id)
+                                                <span>
+                                                    <li  class="expand" href="{{URL::to('/thuong-hieu-san-pham-parent/'.$brand_sub->brand_slug)}}">{{$brand_sub->brand_name}}
+                                                <ul>
+                                                    <a href="#">Coats &amp; Jackets</a>
+                                                    <a href="#">Blazers</a>
+                                                    <a href="#">Jackets</a>
+                                                    <a href="#">Rincoats</a> 
+                                                </ul>
+                                                </span>
+                                            </li>
+                                                @endif
+                                                @endforeach
+                                        </ul>
+                                        </li>
+                                        @endif
+                                    @endforeach
+                                          <li class="expand"><a href="#">Tin tức</a>
+                                            <ul>
+                                            @foreach($category_post as $key =>$cate_post)
+                                            <li><a href="{{URL::to('/danh-muc-bai-viet/'.$cate_post->cate_post_slug)}}">{{$cate_post->cate_post_name}}</a></li>
+                                            @endforeach
+                                             </ul>                                   
+                                        </li>
+                                      <li class="expand"><a href="contact-us.html">Liên hệ</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>                      
+                            </div>
+                        </div>
+                        <!-- mobile menu end -->
                         <!-- mobile menu end -->
                     </div>
                     <!-- mainmenu area end -->
                     <!-- top details area start -->
-                    <div class="col-md-3 col-sm-12 nopadding-left">
-                          
+                    <div class="col-md-3 col-sm-12 nopadding-left" style="background:#ffffff">
                         <div class="top-detail">
                             <div class="expand lang-all disflow">
                                      <?php
@@ -209,17 +273,10 @@
                                                         <a class="small-cart-name" href="{{URL::to('/chi-tiet-san-pham/'.$cart['product_id'])}}">{{$cart['product_name']}}</a>
                                                         
                                                         <span class="quantitys"><strong>x{{$cart['product_qty']}}</strong><span>({{number_format($subtotal,0,',','.')}} VNđ</span>)</span>
-                                                       
-                                                        
                                                     </div>
                                                 </li>
                                                  @endforeach
-                                                
-                                                
-                                              
-                                             
                                             </ul>
-                                           
                                             <p class="buttons">
                                                 <a href="{{URL::to('/login-checkout')}}" class="button">Thanh toán</a>
                                             </p>
@@ -228,7 +285,6 @@
                                     </div>
                                 </div>
                             </div>
-                             
                             <!-- addcart top start -->
                             <!-- search divition start -->
                             <div class="disflow">
@@ -538,6 +594,91 @@
         ============================================ -->           
         <script src="{{asset('/public/frontend/js/sweetalert.js')}}"></script>
         <script src="{{asset('/public/frontend/js/main.js')}}"></script>
+        <script type="text/javascript">
+            function remove_background(product_id){
+                for(var count=1;count<=5;count++)
+                {
+                    $('#'+product_id+'-'+count).css('color','#ccc');
+                }
+            }
+            $(document).on('mouseleave','.rating',function(){
+                var index = $(this).data('index');
+                var product_id = $(this).data('product_id');
+                var rating = $(this).data('rating');
+                remove_background(product_id);
+
+                for(var count = 1;count<=rating;count++)
+                {
+                    $('#'+product_id+'-'+count).css('color','#ffcc00');
+                }
+            });
+            $(document).on('mouseenter','.rating',function(){
+                var index = $(this).data('index');
+                var product_id = $(this).data('product_id');
+
+                remove_background(product_id);
+                for(var count = 1;count<=index;count++)
+                {
+                    $('#'+product_id+'-'+count).css('color','#ffcc00');
+                }
+            })
+            $(document).on('click','.rating',function(){
+                var index = $(this).data('index');
+                var product_id = $(this).data('product_id');
+                var _token = $('input[name="_token"]').val();
+                 $.ajax({
+                    url: "{{url('/insert-rating')}}",
+                    method:"POST",
+                    data:{index:index,product_id:product_id,_token:_token},
+                    success:function(data){
+                        if(data=='done'){
+                            alert("Bạn đã đánh giá " +index+" trên 5 sao");
+                        }
+                        else{
+                            alert("Đánh giá không thành công !");
+                        }
+                    }
+              }); 
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                load_comment();
+                function load_comment(){
+                    var product_id = $('.comment_product_id').val();
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                      url: "{{url('/load-comment')}}",
+                    method:"POST",
+                    data:{product_id:product_id,_token:_token},
+                    success:function(data){
+
+                        $('#comment_show').html(data);
+                    }  
+                 });        
+             }
+             $('.send-comment').click(function(){
+                var product_id = $('.comment_product_id').val();
+                var comment_name = $('.comment_name').val();
+                var comment_content = $('.comment_content').val();
+                var comment_email = $('.comment_email').val();
+                 var _token = $('input[name="_token"]').val();
+                 $.ajax({
+                    url: "{{url('/send-comment')}}",
+                    method:"POST",
+                    data:{product_id:product_id,_token:_token,comment_name:comment_name,comment_content:comment_content,comment_email:comment_email},
+                    success:function(data){
+                        $('#notify_comment').html('<span class="text text-success">Cảm ơn bạn đã gửi bình luận, bình luận của bạn đang chờ được duyệt!</span>');
+                        load_comment();
+                        $('#notify_comment').fadeOut(5000);
+                        $('.comment_name').val('');
+                        $('.comment_email').val('');
+                        $('.comment_content').val('');
+                    }  
+                 });        
+             });
+          }) ;                  
+        </script>
         
         <script type="text/javascript">
              $(document).ready(function(){
@@ -682,11 +823,36 @@
                 success:function(){
                    location.reload(); 
                 
+                         }
+                    });
                 }
-                });
-                 }
-                });
-                 });
+            });
+        });
          </script>
+         <script type="text/javascript">
+             $('.quickview').click(function(){
+                var product_id = $(this).data('id_product');
+                var token = $('input[name="_token"]').val();
+                $.ajax({
+                    url:"{{url('/quickview')}}",
+                    method:"POST",
+                    dataType:"JSON",
+                    data:{product_id:product_id, _token:_token},
+                     success:function(data){
+                        $('#product_quickview_title').html(data.product_name);
+                        $('#product_quickview_id').html(data.product_id);
+                        $('#product_quickview_price').html(data.product_price);
+                        $('#product_quickview_image').html(data.product_image);
+                        $('#product_quickview_desc').html(data.product_desc);
+                        $('#product_quickview_content').html(data.product_content);
+                    }
+                });
+             });
+         </script>
+        
+         <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=2439929359647305&autoLogAppEvents=1" nonce="MspenUjq"></script>
+         <div id="fb-root"></div>
+    <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v8.0&appId=2439929359647305&autoLogAppEvents=1" nonce="K7HF0w0j"></script>
     </body>
 </html>

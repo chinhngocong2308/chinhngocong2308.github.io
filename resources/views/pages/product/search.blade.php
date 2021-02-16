@@ -44,7 +44,7 @@
 								</div>
 								<ul class="sidebar-tags">
 									 @foreach($category as $key=>$cate)
-									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a><span> ({{$cate->category_id}})</span></li>
+									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->slug_category_product)}}">{{$cate->category_name}}</a><span> ({{$cate->category_id}})</span></li>
 									@endforeach
 								</ul>
 							</aside>
@@ -54,7 +54,7 @@
 								</div>
 								<ul>
 									 @foreach($brand as $key=>$br)
-									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_id)}}">{{ $br->brand_name}}</a><span> ({{$br->brand_id}})</span></li>
+									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_slug)}}">{{ $br->brand_name}}</a><span> ({{$br->brand_id}})</span></li>
 									@endforeach
 								</ul>
 							</aside>

@@ -73,13 +73,30 @@
                                         </select>
                                 </div>
                                  <div class="form-group">
-                                    <label for="text">Thương hiệu </label>
+                                    <label for="text">Dành cho </label>
                                         <select class="form-control input-sm m-bot15" name="product_brand">
                                             @foreach($brand_product as $key => $brand)
-                                                @if($brand->brand_id==$pro->brand_id)
+                                            @if ($brand->brand_parent==0)
+                                                @if($brand->brand_id==$pro->brand_id )
                                             <option selected value="{{$brand->brand_id}}">{{ $brand->brand_name }}</option>
                                             @else
                                             <option value="{{$brand->brand_id}}">{{ $brand->brand_name }}</option>
+                                            @endif
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="text">Thương hiệu </label>
+                                        <select class="form-control input-sm m-bot15" name="product_parent_id">
+                                                <option value="0">--Thương hiệu--</option>
+                                            @foreach ($brand_product as $key=>$val )
+                                            @if ($val->brand_parent!=0)
+                                            @if($val->brand_id==$pro->brand_parent_id )
+                                            <option selected value="{{$val->brand_id}}">{{ $val->brand_name }}</option>
+                                            @else
+                                                <option value="{{$val->brand_id}}">{{$val->brand_name}}</option>
+                                            @endif
                                             @endif
                                             @endforeach
                                         </select>

@@ -26,7 +26,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Slug</label>
-                                    <input type="text" value="{{$edit_value->brand_slug}}" name="brand_product_slug" class="form-control" id="exampleInputEmail1" >
+                                    <input type="text" value="{{$edit_value->brand_slug}}" name="brand_slug" class="form-control" id="exampleInputEmail1" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="text">Thuộc mục bán </label>
+                                        <select class="form-control input-sm m-bot15" name="brand_parent">
+                                                <option value="0">Nam/Nữ</option>
+                                            @foreach ($brand as $key=>$val )
+                                                <option value="{{$val->brand_id}}">{{$val->brand_name}}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="text">Mô tả </label>

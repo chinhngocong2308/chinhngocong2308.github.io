@@ -46,7 +46,7 @@
 								</div>
 								<ul class="sidebar-tags">
 									 @foreach($category as $key=>$cate)
-									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->category_id)}}">{{$cate->category_name}}</a><span> ({{$cate->category_id}})</span></li>
+									<li><a href="{{URL::to('/danh-muc-san-pham/'.$cate->slug_category_product)}}">{{$cate->category_name}}</a><span> ({{$cate->category_id}})</span></li>
 									@endforeach
 								</ul>
 							</aside>
@@ -56,7 +56,7 @@
 								</div>
 								<ul>
 									 @foreach($brand as $key=>$br)
-									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_id)}}">{{ $br->brand_name}}</a><span> ({{$br->brand_id}})</span></li>
+									<li><a href="{{URL::to('/thuong-hieu-san-pham/'.$br->brand_slug)}}">{{ $br->brand_name}}</a><span> ({{$br->brand_id}})</span></li>
 									@endforeach
 								</ul>
 							</aside>
@@ -90,14 +90,13 @@
 								</div>
 								<div class="exp-tags">
 									<div class="tags">
-										<a href="#">camera</a>
-										<a href="#">mobile</a>
-										<a href="#">electronic</a>
-										<a href="#">destop</a>
-										<a href="#">tablet</a>
-										<a href="#">accessories</a>
-										<a href="#">camcorder</a>
-										<a href="#">laptop</a>
+										<a href="#">Jeans</a>
+										<a href="#">jackets & coats</a>
+										<a href="#">bags</a>
+										<a href="#">shoes</a>
+										<a href="#">T-shirts</a>
+										<a href="#">Shirts</a>
+										<a href="#">Head</a>
 									</div>
 								</div>
 							</aside>
@@ -128,7 +127,7 @@
 									<div class="limiter hidden-xs">
 										<label>Show</label>
 										<select>
-											<option selected="selected" value="">9</option>
+											<option selected="selected" value="">3</option>
 											<option value="">12</option>
 											<option value="">24</option>
 											<option value="">36</option>

@@ -12,13 +12,13 @@ session_start();
 use App\Models\Social;
 use Socialite;
 use App\Models\Customers;
-
+use App\Models\Post;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\Wards;
 use App\Models\Feeship;
 use App\Models\Coupon;
-
+use App\Models\CatePost;
 use App\Models\Shipping;
 use App\Models\Order;
 use App\Models\OrderDetails;
@@ -26,12 +26,18 @@ use App\Models\OrderDetails;
   
 class CheckoutController extends Controller
 {
-   public function login_checkout(){
+   public function login_checkout(Request $request){
+       $category_post = CatePost::orderby('cate_post_id','DESC')->get();
    		$cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
     	$brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
     	
     	$all_product = DB::table('tbl_product')->where('product_status','0')->orderby('product_id','desc')->get();
-   		return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product);
+        $meta_desc = "Đăng nhập"; 
+        $meta_keywords = "Đăng nhập";
+        $meta_title = "Đăng nhập SHOP|Notphace";
+        $url_canonical = $request->url();
+
+   		return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('category_post',$category_post)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical)->with('category_post',$category_post);
    }
 
    public function confirm_order(Request $request){
@@ -92,15 +98,22 @@ class CheckoutController extends Controller
 
 
    }
-   public function view_checkout(){
+   public function view_checkout(Request $request){
+     $category_post = CatePost::orderby('cate_post_id','DESC')->get();
       $cate_product = DB::table('tbl_category_product')->where('category_status','0')->orderby('category_id','desc')->get();
       $brand_product = DB::table('tbl_brand')->where('brand_status','0')->orderby('brand_id','desc')->get();
       $all_product = DB::table('tbl_product')->where('product_status','0')->orderby('product_id','desc')->get();
       if(Session::get('customer_id')){
-   	
-   		return view('pages.checkout.view_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product); }
+   	          
+        $meta_desc = "Trang thanh tooán";
+        $meta_keywords = "Thanh toán ";
+        $meta_title = "Thanh toán";
+        $url_canonical =$request->url();
+   
+   		return view('pages.checkout.view_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('category_post',$category_post)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical); 
+    }
       else {
-        return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product); 
+        return view('pages.checkout.login_checkout')->with('category',$cate_product)->with('brand',$brand_product)->with('all_product',$all_product)->with('category_post',$category_post)->with('meta_desc',$meta_desc)->with('meta_keywords',$meta_keywords)->with('meta_title',$meta_title)->with('url_canonical',$url_canonical); 
       }
    }
    public function save_checkout_customer(RequestOrderCheckout $request){

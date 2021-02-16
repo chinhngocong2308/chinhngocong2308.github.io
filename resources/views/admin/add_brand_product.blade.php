@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Thêm danh mục thương hiệu
+                            Thêm danh mục bán và thương hiệu
                         </header>
                         <div class="panel-body">    
                             <div class="position-center">
@@ -30,11 +30,20 @@
                                     {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="text">Tên thương hiệu</label>
-                                    <input type="text" name="brand_product_name" class="form-control" id="exampleInputEmail1" placeholder="Tên danh mục">
+                                    <input type="text" name="brand_product_name"  onkeyup="ChangeToSlug();" id="slug" class="form-control" id="exampleInputEmail1" placeholder="Tên danh mục">
                                 </div>
                                  <div class="form-group">
                                     <label for="exampleInputEmail1">Slug</label>
-                                    <input type="text" name="brand_slug" class="form-control" id="exampleInputEmail1" placeholder="Slug">
+                                    <input type="text" name="brand_slug" class="form-control" id="convert_slug" placeholder="Slug">
+                                </div>
+                                <div class="form-group">
+                                    <label for="text">Thuộc mục bán </label>
+                                        <select class="form-control input-sm m-bot15" name="brand_parent">
+                                                <option value="0">Nam/Nữ</option>
+                                            @foreach ($brand as $key=>$val )
+                                                <option value="{{$val->brand_id}}">{{$val->brand_name}}</option>
+                                            @endforeach
+                                        </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="text">Mô tả </label>

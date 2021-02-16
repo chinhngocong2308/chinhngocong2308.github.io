@@ -18,16 +18,30 @@ use App\Http\Controllers\HomeController;
 
 // Route::get('/trang-chu','HomeController@index');
 //Frontend
-Route::get('/', [HomeController::class,'index']);
-
+Route::get('/','App\Http\Controllers\HomeController@index');
 Route::get('/trang-chu','App\Http\Controllers\HomeController@index');
 Route::get('/shop','App\Http\Controllers\ShopController@index');
 Route::post('/tim-kiem','App\Http\Controllers\HomeController@search');
-
+//contact us
+Route::get('/lien-he','App\Http\Controllers\ContactController@lien_he');
 //Danh muc san pham trang chu
-Route::get('/danh-muc-san-pham/{category_id}','App\Http\Controllers\CategoryProduct@show_category_shop');
-Route::get('/thuong-hieu-san-pham/{brand_id}','App\Http\Controllers\BrandProduct@show_brand_shop');
+Route::get('/danh-muc-san-pham/{slug_category_product}','App\Http\Controllers\CategoryProduct@show_category_shop');
+Route::get('/thuong-hieu-san-pham/{brand_slug}','App\Http\Controllers\BrandProduct@show_brand_shop');
+Route::get('/thuong-hieu-san-pham-parent/{brand_slug_parent}','App\Http\Controllers\BrandProduct@show_brand_parent_shop');
+Route::get('/thuong-hieu-san-pham/{brand_slug}','App\Http\Controllers\BrandProduct@show_brand_parent_shop');
+Route::get('/thuong-hieu-san-pham-sex/{brand_slug_sex}','App\Http\Controllers\BrandProduct@show_brand_sex');
 Route::get('/chi-tiet-san-pham/{product_id}','App\Http\Controllers\ProductController@details_product');
+Route::POST('/quickview','App\Http\Controllers\ProductController@quickview'); 
+Route::post('/load-comment','App\Http\Controllers\ProductController@load_comment');
+Route::post('/send-comment','App\Http\Controllers\ProductController@send_comment');
+Route::get('/comment','App\Http\Controllers\ProductController@list_comment');
+
+Route::post('/duyet-comment','App\Http\Controllers\ProductController@duyet_comment');
+Route::post('/reply-comment','App\Http\Controllers\ProductController@reply_comment');
+//danh gia
+Route::post('/insert-rating','App\Http\Controllers\ProductController@insert_rating');
+
+
 //Images Product
 Route::get('/add-images-product','App\Http\Controllers\ImagesProduct@add_images_product'); 
 Route::get('/edit-images-product/{image_id}','App\Http\Controllers\ImagesProduct@edit_images_product');
@@ -50,12 +64,25 @@ Route::get('/all-category-product','App\Http\Controllers\CategoryProduct@all_cat
 
 Route::POST('/save-category-product','App\Http\Controllers\CategoryProduct@save_category_product'); 
 Route::POST('/update-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@update_category_product'); 
+//danh mục bài viết Category POST
+Route::get('/add-category-post','App\Http\Controllers\CategoryPost@add_category_post'); 
+Route::post('/save-category-post','App\Http\Controllers\CategoryPost@save_category_post'); 
+Route::get('/all-category-post','App\Http\Controllers\CategoryPost@all_category_post'); 
+Route::get('/edit-category-post/{category_post_id}','App\Http\Controllers\CategoryPost@edit_category_post'); 
+Route::post('/update-category-post/{cate_id}','App\Http\Controllers\CategoryPost@update_category_post');  
+Route::get('/delete-category-post/{cate_id}','App\Http\Controllers\CategoryPost@delete_category_post'); 
 
-Route::get('/active-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@active_category_product'); 
-Route::get('/unactive-category-product/{category_product_id}','App\Http\Controllers\CategoryProduct@unactive_category_product'); 
-//Post-Bài viết
-Route::get('/add-post','App\Http\Controllers\Post@add_post'); 
 
+//Post-Bài viết backend
+Route::get('/add-post','App\Http\Controllers\PostController@add_post'); 
+Route::post('/save-post','App\Http\Controllers\PostController@save_post'); 
+Route::get('/all-post','App\Http\Controllers\PostController@all_post');
+Route::get('/delete-post/{post_id}','App\Http\Controllers\PostController@delete_post'); 
+Route::get('/edit-post/{post_id}','App\Http\Controllers\PostController@edit_post');
+Route::post('/update-post/{post_id}','App\Http\Controllers\PostController@update_post');
+//post bai viet frontend
+Route::get('/danh-muc-bai-viet/{post_slug}','App\Http\Controllers\PostController@danh_muc_bai_viet');
+Route::get('/chi-tiet-bai-viet/{post_slug}','App\Http\Controllers\PostController@chi_tiet_bai_viet');
 //Brand Product
 Route::get('/add-brand-product','App\Http\Controllers\BrandProduct@add_brand_product'); 
 Route::get('/edit-brand-product/{brand_product_id}','App\Http\Controllers\BrandProduct@edit_brand_product');
